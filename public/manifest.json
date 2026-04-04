@@ -1,0 +1,5 @@
+{
+    "resources/css/app.css": "/assets/css/app.css",
+    "resources/js/app.js": "/assets/js/app.js",
+    "resources/css/app.scss": "/assets/css/app.css"
+}

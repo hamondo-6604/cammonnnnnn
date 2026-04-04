@@ -3,6 +3,18 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\AnalyticsController;
+use App\Http\Controllers\Admin\Operations\DriverController;
+use App\Http\Controllers\Admin\Operations\PaymentController;
+use App\Http\Controllers\Admin\Operations\PromotionController;
+use App\Http\Controllers\Admin\System\CityController;
+use App\Http\Controllers\Admin\System\NotificationController;
+use App\Http\Controllers\Admin\System\FeedbackController;
+use App\Http\Controllers\Admin\Fleet\MaintenanceController;
+use App\Http\Controllers\Admin\Fleet\SeatController;
+use App\Http\Controllers\Admin\System\RoleController;
+use App\Http\Controllers\Admin\System\ProfileController;
+use App\Http\Controllers\Admin\System\SettingsController;
 use App\Http\Controllers\Admin\Bus\BusController;
 use App\Http\Controllers\Admin\Bus\BusTypeController;
 use App\Http\Controllers\Admin\Bus\SeatLayoutController;
@@ -21,6 +33,28 @@ use App\Http\Controllers\Admin\Trip\FareController;
 */
 Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])
   ->name('dashboard');
+
+Route::get('analytics', [AnalyticsController::class, 'index'])
+  ->name('analytics');
+
+/*
+|--------------------------------------------------------------------------
+| Additional Resource Routes
+|--------------------------------------------------------------------------
+*/
+Route::resource('drivers', App\Http\Controllers\Admin\Operations\DriverController::class)->names('drivers');
+Route::resource('payments', App\Http\Controllers\Admin\Operations\PaymentController::class)->names('payments');
+Route::resource('promotions', App\Http\Controllers\Admin\Operations\PromotionController::class)->names('promotions');
+Route::resource('cities', App\Http\Controllers\Admin\System\CityController::class)->names('cities');
+Route::resource('notifications', App\Http\Controllers\Admin\System\NotificationController::class)->names('notifications');
+Route::resource('feedback', App\Http\Controllers\Admin\System\FeedbackController::class)->names('feedback');
+Route::resource('maintenance', App\Http\Controllers\Admin\Fleet\MaintenanceController::class)->names('maintenance');
+Route::resource('seats', App\Http\Controllers\Admin\Fleet\SeatController::class)->names('seats');
+Route::resource('roles', App\Http\Controllers\Admin\System\RoleController::class)->names('roles');
+
+// ── Profile + Settings (single pages) ──
+Route::get('/profile', [App\Http\Controllers\Admin\System\ProfileController::class, 'index'])->name('profile');
+Route::get('/settings', [App\Http\Controllers\Admin\System\SettingsController::class, 'index'])->name('settings');
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +112,7 @@ Route::prefix('bookings')->group(function () {
 
   Route::get('reports', [ReportController::class, 'bookingReports'])->name('bookings.reports');
   Route::get('notifications', [AdminBookingController::class, 'notifications'])->name('bookings.notifications');
+  Route::get('{booking}/export', [AdminBookingController::class, 'export'])->name('bookings.export');
 });
 
 /*
@@ -101,7 +136,7 @@ Route::prefix('trip-management')->group(function () {
     'store'   => 'trips.store',
     'edit'    => 'trips.edit',
     'update'  => 'trips.update',
-    'destroy' => 'trips.destroy',
+    'destroy'  => 'trips.destroy',
   ]);
 
   Route::get('assign', [AssignBusController::class, 'index'])->name('assign.index');

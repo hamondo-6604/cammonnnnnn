@@ -1,0 +1,39 @@
+/* ==================== Main Layout ==================== */
+
+/* Main wrapper */
+.main-wrapper {
+  margin-left: 300px;
+  min-height: 100vh;
+  background: #f8f9fa;
+  transition: margin-left 0.3s ease;
+}
+
+/* Main content area */
+.main-content {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Body styles for dashboard */
+.dash-body {
+  background: #f8f9fa;
+  font-family: 'Outfit', sans-serif;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .main-wrapper {
+    margin-left: 0;
+  }
+  
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.active {
+    transform: translateX(0);
+  }
+}

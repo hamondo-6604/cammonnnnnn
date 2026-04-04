@@ -14,12 +14,14 @@
 @use 'components/cards' as *;
 @use 'components/forms' as *;
 @use 'components/tables' as *;
+@use 'components/admin-panels' as *;
 
 // layout - header, footer, sidebar, navbar
 @use 'layout/footer' as *;
 @use 'layout/header' as *;
 @use 'layout/sidebar' as *;
 @use 'layout/navbar' as *;
+@use 'layout/main' as *;
 
 // pages - admin bus, user dashboard, auth, etc.
 // For example, if you want to include bus admin pages styles globally

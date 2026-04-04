@@ -11,7 +11,7 @@ class BookingController extends Controller
     // List all bookings
     public function index()
     {
-        $bookings = Booking::latest()->paginate(20);
+        $bookings = Booking::latest()->paginate(10);
         return view('admin.booking_management.booking.index', compact('bookings'));
     }
 
@@ -45,6 +45,34 @@ class BookingController extends Controller
     public function show(Booking $booking)
     {
         return view('admin.booking_management.booking.show', compact('booking'));
+    }
+
+    // Export booking details as PDF
+    public function export(Booking $booking)
+    {
+        // For now, we'll create a simple text-based receipt
+        // In a real implementation, you might use DOMPDF or similar package
+        
+        $content = "BOOKING RECEIPT\n";
+        $content .= "================\n\n";
+        $content .= "Booking Reference: {$booking->booking_reference}\n";
+        $content .= "Status: " . ucfirst($booking->status) . "\n";
+        $content .= "Payment Status: " . ucfirst($booking->payment_status) . "\n";
+        $content .= "Amount Paid: $" . $booking->amount_paid . "\n\n";
+        $content .= "Passenger Information:\n";
+        $content .= "Name: " . ($booking->user->name ?? 'N/A') . "\n\n";
+        $content .= "Trip Details:\n";
+        $content .= "Bus: " . ($booking->bus->name ?? 'N/A') . "\n";
+        $content .= "Seat: " . ($booking->seat_number ?? 'N/A') . " (" . $booking->seat_type . ")\n";
+        $content .= "Departure: " . ($booking->departure_time?->format('d M Y, H:i') ?? 'N/A') . "\n";
+        $content .= "Arrival: " . ($booking->arrival_time?->format('d M Y, H:i') ?? 'N/A') . "\n\n";
+        $content .= "Generated on: " . now()->format('d M Y, H:i') . "\n";
+        
+        $filename = "booking_{$booking->booking_reference}_receipt.txt";
+        
+        return response($content)
+            ->header('Content-Type', 'text/plain')
+            ->header('Content-Disposition', "attachment; filename=\"{$filename}\"");
     }
 
     // Show form to edit booking
@@ -81,19 +109,19 @@ class BookingController extends Controller
     // Status views
     public function pending()
     {
-        $pendingBookings = Booking::where('status', 'pending')->latest()->paginate(20);
+        $pendingBookings = Booking::where('status', 'pending')->latest()->paginate(10);
         return view('admin.booking_management.status.pending', compact('pendingBookings'));
     }
 
     public function completed()
     {
-        $completedBookings = Booking::where('status', 'completed')->latest()->paginate(20);
+        $completedBookings = Booking::where('status', 'completed')->latest()->paginate(10);
         return view('admin.booking_management.status.completed', compact('completedBookings'));
     }
 
     public function cancelled()
     {
-        $cancelledBookings = Booking::where('status', 'cancelled')->latest()->paginate(20);
+        $cancelledBookings = Booking::where('status', 'cancelled')->latest()->paginate(10);
         return view('admin.booking_management.status.cancelled', compact('cancelledBookings'));
     }
 

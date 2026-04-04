@@ -1,41 +1,24 @@
-<!-- footer.blade.php -->
+{{-- Font Awesome JS (optional, only for some features) --}}
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
 
-<footer>
-    <p>&copy; 2025 My Company. All rights reserved.</p>
-</footer>
+{{-- Lucide Icons --}}
+<script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
-<!-- Include main.js -->
+{{-- Main dashboard JS --}}
 <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
 
-<!-- ====== ionicons ======= -->
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-<!-- Add custom scripts pushed from other views (if any) -->
+@vite(['resources/js/app.js'])
 @stack('scripts')
 
-<!-- Dropdown Toggle Script -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const submenuToggle = document.querySelectorAll('.toggle-submenu');
-        
-        submenuToggle.forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                const submenu = this.nextElementSibling; // the <ul class="submenu">
-                
-                // Toggle the visibility of the submenu
-                submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Lucide icons
+    if(typeof lucide !== 'undefined') lucide.createIcons();
 
-                // Optionally, toggle the chevron direction
-                const chevronIcon = this.querySelector('.dropdown-icon');
-                if (chevronIcon) {
-                    chevronIcon.name = submenu.style.display === 'block' ? 'chevron-up-outline' : 'chevron-down-outline';
-                }
-            });
-        });
+    // Live date in header
+    const el = document.getElementById('live-date');
+    if(el) el.textContent = new Date().toLocaleDateString('en-PH', {
+        weekday: 'short', month: 'short', day: 'numeric'
     });
+});
 </script>
-
-</body>
-</html>

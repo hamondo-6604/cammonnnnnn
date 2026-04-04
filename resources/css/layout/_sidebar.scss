@@ -1,4 +1,4 @@
-.navigation {
+.sidebar {
   position: fixed;
   width: 300px;
   height: 100%;
@@ -6,80 +6,96 @@
   border-left: 10px solid var(--blue);
   transition: 0.5s;
   overflow: hidden;
-  color: cyan;
+  color: white;
+  z-index: 1000;
 }
 
-.navigation ul {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  //   background-color: red;
-
-}
-
-.navigation ul li {
-  position: relative;
-  width: 100%;
-  list-style: none;
-  //   background-color: rgb(97, 30, 13);
-}
-
-.navigation li.title {
-  margin-bottom: 40px;
-  pointer-events: none;
-}
-
-.navigation ul li a {
-  position: relative;
-  display: block;
-  width: 100%;
+.sidebar-brand {
   display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+}
+
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  margin-right: 12px;
+}
+
+.brand-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+}
+
+.brand-badge {
+  background: var(--khaki);
+  color: var(--blue);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.sidebar-nav {
+  padding: 0 20px;
+}
+
+.nav-group-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+  padding-left: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 4px;
+  border-radius: 8px;
   text-decoration: none;
-  color: var(--white);
-  //   background-color: green;
-}
-
-.navigation ul li a .icon {
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease;
   position: relative;
-  display: block;
-  min-width: 60px;
-  height: 60px;
-  line-height: 75px;
-  text-align: center;
 }
 
-.navigation ul li a .icon ion-icon {
-  font-size: 1.75rem;
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
-.navigation ul li a .title {
-  position: relative;
-  display: block;
-  padding: 0 10px;
-  height: 60px;
-  line-height: 60px;
-  text-align: start;
-  white-space: nowrap;
+.nav-item.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
 }
 
-.navigation .has-submenu .submenu {
-  background-color: red;
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  font-size: 16px;
 }
 
-.submenu {
-  padding-left: 20px;
-  list-style: none;
-  display: none;
-}
-
-.submenu li a {
-  // display: block;
-  padding: 8px 10px;
-  text-decoration: none;
-  color: #333;
-}
-
-.submenu li a:hover {
-  background-color: #f0f0f0;
+.nav-badge {
+  background: var(--red);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-left: auto;
 }
